@@ -1,128 +1,184 @@
 import * as React from "react"
-import { Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
+// import { HeadFC, PageProps, withPrefix } from "gatsby"
+// import { StaticImage } from "gatsby-plugin-image"
+import styled, { createGlobalStyle, keyframes } from "styled-components"
 
-import Layout from "../components/layout"
-import Seo from "../components/seo"
-import * as styles from "../components/index.module.css"
+  const GlobalStyle = createGlobalStyle`
+  body {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+  }
+`
+const HomeBackgroundContainer = styled.div`
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #272727;
+  opacity: .5;
+`
 
-const links = [
-  {
-    text: "Tutorial",
-    url: "https://www.gatsbyjs.com/docs/tutorial",
-    description:
-      "A great place to get started if you're new to web development. Designed to guide you through setting up your first Gatsby site.",
-  },
-  {
-    text: "Examples",
-    url: "https://github.com/gatsbyjs/gatsby/tree/master/examples",
-    description:
-      "A collection of websites ranging from very basic to complex/complete that illustrate how to accomplish specific tasks within your Gatsby sites.",
-  },
-  {
-    text: "Plugin Library",
-    url: "https://www.gatsbyjs.com/plugins",
-    description:
-      "Learn how to add functionality and customize your Gatsby site or app with thousands of plugins built by our amazing developer community.",
-  },
-  {
-    text: "Build and Host",
-    url: "https://www.gatsbyjs.com/cloud",
-    description:
-      "Now you’re ready to show the world! Give your Gatsby site superpowers: Build and host on Gatsby Cloud. Get started for free!",
-  },
-]
+const TypeWriter  = keyframes`
+  from {
+    width: 0;
+  }
+  to {
+    width: 250px;
+  }
+`
 
-const samplePageLinks = [
-  {
-    text: "Page 2",
-    url: "page-2",
-    badge: false,
-    description:
-      "A simple example of linking to another page within a Gatsby site",
-  },
-  { text: "TypeScript", url: "using-typescript" },
-  { text: "Server Side Rendering", url: "using-ssr" },
-  { text: "Deferred Static Generation", url: "using-dsg" },
-]
+const BlinkTextCursor  = keyframes`
+  from {
+    border-right-color: hsl(0, 0%, 80%);
+  }
+  to {
+    border-right-color: transparent;
+  }
+`
+const NameContainer = styled.span`
+position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-right: -50%;
+      transform: translate(-50%, -50%);
+  `
 
-const moreLinks = [
-  { text: "Join us on Discord", url: "https://gatsby.dev/discord" },
-  {
-    text: "Documentation",
-    url: "https://gatsbyjs.com/docs/",
-  },
-  {
-    text: "Starters",
-    url: "https://gatsbyjs.com/starters/",
-  },
-  {
-    text: "Showcase",
-    url: "https://gatsbyjs.com/showcase/",
-  },
-  {
-    text: "Contributing",
-    url: "https://www.gatsbyjs.com/contributing/",
-  },
-  { text: "Issues", url: "https://github.com/gatsbyjs/gatsby/issues" },
-]
+const HomeNameStyle = styled.h1`
+  position: relative;
+  color: hsl(0, 0%, 68%);
+  font-weight: bold;
+  font-family: "Anonymous Pro", monospace;
+  letter-spacing: 7px;
+  overflow: hidden;
+  border-right: 2px solid hsl(0, 0%, 80%);
+  white-space: nowrap;
+  animation: ${TypeWriter} 4s steps(44) 1s 1 normal both,
+  ${BlinkTextCursor} 500ms infinite;
+`
 
-const utmParameters = `?utm_source=starter&utm_medium=start-page&utm_campaign=default-starter`
+const NavBarContainer = styled.nav`
+z-index: 15;    
+position: absolute;
+    top: 2%;
+    right: 0;
+    left: auto;
+    width: 319px;
+    display: table;
+    margin: 0 auto;
+    transform: translateY(-50%);
+    a {
+      position: relative;
+      width: 33.333%;
+      display: table-cell;
+      text-align: center;
+      color: #949494;
+      text-decoration: none;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      font-weight: bold;
+      padding: 10px 20px;
+      transition: 0.2s ease color;
+    }
+    
+     a:before,
+     a:after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      transform: scale(0);
+      transition: 0.2s ease transform;
+    }
+    
+     a:before {
+      top: 0;
+      left: 10px;
+      width: 6px;
+      height: 6px;
+    }
+    
+     a:after {
+      top: 5px;
+      left: 18px;
+      width: 4px;
+      height: 4px;
+    }
+    
+    #indicator {
+      position: absolute;
+      left: 5%;
+      bottom: 0;
+      width: 30px;
+      height: 3px;
+      background-color: #fff;
+      border-radius: 5px;
+      transition: 0.2s ease left;
+    }
+    
+    a:hover {
+      color: #fff;
+    }
+    
+    a:hover:before,
+    a:hover:after {
+      transform: scale(1);
+    }
 
-const IndexPage = () => (
-  <Layout>
-    <div className={styles.textCenter}>
-      <StaticImage
-        src="../images/example.png"
-        loading="eager"
-        width={64}
-        quality={95}
-        formats={["auto", "webp", "avif"]}
-        alt=""
-        style={{ marginBottom: `var(--space-3)` }}
-      />
-      <h1>
-        Welcome to <b>Gatsby!</b>
-      </h1>
-      <p className={styles.intro}>
-        <b>Example pages:</b>{" "}
-        {samplePageLinks.map((link, i) => (
-          <React.Fragment key={link.url}>
-            <Link to={link.url}>{link.text}</Link>
-            {i !== samplePageLinks.length - 1 && <> · </>}
-          </React.Fragment>
-        ))}
-        <br />
-        Edit <code>src/pages/index.js</code> to update this page.
-      </p>
-    </div>
-    <ul className={styles.list}>
-      {links.map(link => (
-        <li key={link.url} className={styles.listItem}>
-          <a
-            className={styles.listItemLink}
-            href={`${link.url}${utmParameters}`}
-          >
-            {link.text} ↗
-          </a>
-          <p className={styles.listItemDescription}>{link.description}</p>
-        </li>
-      ))}
-    </ul>
-    {moreLinks.map((link, i) => (
-      <React.Fragment key={link.url}>
-        <a href={`${link.url}${utmParameters}`}>{link.text}</a>
-        {i !== moreLinks.length - 1 && <> · </>}
-      </React.Fragment>
-    ))}
-  </Layout>
-)
+    a:active {
+      color: #fff;
+    }
+    
+`
+const Layout = ({ children }) => {
+  return (
+    <React.Fragment>
+      <GlobalStyle theme="purple" />
+      {children}
+    </React.Fragment>
+  )
+}
 
-/**
- * Head export to define metadata for the page
- *
- * See: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
- */
-export const Head = () => <Seo title="Home" />
+const BackgroundContainer = styled.div`
+width: 100%;
+height: 100vh;
+`
+
+const NavBar = () => {
+  return (
+    <NavBarContainer>
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Resume</a>
+      <a href="#">Contact</a>
+      <div id="indicator"></div>
+    </NavBarContainer>
+  )
+}
+
+const IndexPage = () => {
+  return (
+    <Layout>
+      <main>
+        <NavBar />
+        <section id="home-page">
+          <BackgroundContainer>
+          <img 
+          style={{height: '100%', maxHeight: '100vh', width: '100%', objectFit: 'cover'}}
+          src={'/home.jpg'} alt="Home" />
+            
+            <HomeBackgroundContainer />
+          </BackgroundContainer>
+          <NameContainer style={{ display: 'inline-flex' }}>
+            <HomeNameStyle>Nikhil Nair</HomeNameStyle>
+          </NameContainer>
+        </section>
+    </main>
+    </Layout>
+    
+  )
+}
 
 export default IndexPage
+
+export const Head = () => <title>Home Page</title>
