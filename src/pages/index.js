@@ -165,7 +165,7 @@ const IndexPage = () => {
           <BackgroundContainer>
           <img 
           style={{height: '100%', maxHeight: '100vh', width: '100%', objectFit: 'cover'}}
-          src={'/home.jpg'} alt="Home" />
+          src={'https://raw.githubusercontent.com/Nikhilnair48/Nikhilnair48.github.io/master/static/home.jpg'} alt="Home" />
             
             <HomeBackgroundContainer />
           </BackgroundContainer>
